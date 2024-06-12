@@ -1,194 +1,1066 @@
 {
-  "openapi": "3.0.1",
-  "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
-    "license": {
-      "name": "MIT"
-    },
-    "version": "1.0.0"
-  },
-  "servers": [
-    {
-      "url": "http://sandbox.mintlify.com"
-    }
-  ],
-  "security": [
-    {
-      "bearerAuth": []
-    }
-  ],
+  "openapi": "3.0.0",
   "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
+    "/rest/v1/assistants": {
+      "post": {
+        "operationId": "AssistantsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAssistantDto"
+              }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
-            "description": "Plant response",
+            "description": "Create AI Assistant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Assistant"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Assistants"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "get": {
+        "operationId": "AssistantsController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "List of AI Assistant.",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Plant"
+                    "$ref": "#/components/schemas/Assistant"
                   }
                 }
               }
             }
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
           }
-        }
-      },
-      "post": {
-        "description": "Creates a new plant in the store",
-        "requestBody": {
-          "description": "Plant to add to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          },
-          "required": true
         },
-        "responses": {
-          "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
+        "tags": [
+          "Assistants"
+        ],
+        "security": [
+          {
+            "bearer": []
           }
-        }
+        ]
       }
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
+    "/rest/v1/assistants/templates": {
+      "get": {
+        "operationId": "AssistantsController_findAllTemplates",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "List of AI Assistant templates.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Assistant"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Assistants"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/rest/v1/assistants/{id}": {
+      "get": {
+        "operationId": "AssistantsController_findOne",
         "parameters": [
           {
             "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
             "required": true,
+            "in": "path",
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "type": "string"
             }
           }
         ],
         "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
-          },
-          "400": {
-            "description": "unexpected error",
+          "200": {
+            "description": "AI Assistant by Assistant ID.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/Assistant"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Assistant not found."
+          }
+        },
+        "tags": [
+          "Assistants"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "AssistantsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAssistantDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update specific AI Assistant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Assistant"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Assistants"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "AssistantsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update specific AI Assistant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteAssistant"
                 }
               }
             }
           }
-        }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "Plant": {
-        "required": [
-          "name"
+        },
+        "tags": [
+          "Assistants"
         ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
-          },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
+        "security": [
+          {
+            "bearer": []
           }
-        }
-      },
-      "NewPlant": {
-        "allOf": [
+        ]
+      }
+    },
+    "/rest/v1/assistants/duplicate/{id}": {
+      "post": {
+        "operationId": "AssistantsController_duplicate",
+        "parameters": [
           {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update specific AI Assistant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Assistant"
+                }
               }
             }
           }
+        },
+        "tags": [
+          "Assistants"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/rest/v1/assistants/callConfig": {
+      "post": {
+        "operationId": "AssistantsController_callConfig",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCallConfiguration"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Create call configuration of AI Assistant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CallConfiguration"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Assistant not found or invalid organization ID."
+          }
+        },
+        "tags": [
+          "Assistants"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/rest/v1/assistants/phoneCallConfig": {
+      "post": {
+        "operationId": "AssistantsController_phoneCallConfig",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePhoneCallConfiguration"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Create phone call configuration of AI Assistant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PhoneCallConfiguration"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Assistant not found or invalid organization ID."
+          }
+        },
+        "tags": [
+          "Assistants"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/rest/v1/assistants/callAvailable": {
+      "post": {
+        "operationId": "AssistantsController_callAvailable",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCallConfiguration"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Check if call available for specific assistant and organization.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Assistant not found or invalid organization ID."
+          }
+        },
+        "tags": [
+          "Assistants"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/rest/v1/assistants/{assistantId}/voice": {
+      "patch": {
+        "operationId": "VoiceController_create",
+        "parameters": [
+          {
+            "name": "assistantId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VoiceConfigurationUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update voice configuration of AI Assistant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VoiceConfiguration"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Assistants Voice Configuration"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
         ]
       },
-      "Error": {
-        "required": [
-          "error",
-          "message"
+      "get": {
+        "operationId": "VoiceController_config",
+        "parameters": [
+          {
+            "name": "assistantId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
+        "responses": {
+          "200": {
+            "description": "Get voice configuration of AI Assistant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VoiceConfiguration"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Assistants Voice Configuration"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/rest/v1/assistants/{assistantId}/sms": {
+      "patch": {
+        "operationId": "SmsController_create",
+        "parameters": [
+          {
+            "name": "assistantId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmsConfigurationUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update sms configuration of AI Assistant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SmsConfiguration"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Assistants Sms Configuration"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "get": {
+        "operationId": "SmsController_config",
+        "parameters": [
+          {
+            "name": "assistantId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get sms configuration of AI Assistant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SmsConfiguration"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Assistants Sms Configuration"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/rest/v1/assistants/{assistantId}/chat": {
+      "patch": {
+        "operationId": "ChatController_create",
+        "parameters": [
+          {
+            "name": "assistantId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatConfigurationUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update chat configuration of AI Assistant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatConfiguration"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Assistants Chat Configuration"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "get": {
+        "operationId": "ChatController_config",
+        "parameters": [
+          {
+            "name": "assistantId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get chat configuration of AI Assistant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatConfiguration"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Assistants Chat Configuration"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Career Karma API",
+    "description": "Career Karma API documentation.",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [{
+    "url": "https://api.careerkarma.ai"
+  }],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "CreateAssistantDto": {
         "type": "object",
         "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
+          "name": {
+            "type": "string"
           },
-          "message": {
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "Assistant": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "template": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "UpdateAssistantDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
             "type": "string"
           }
         }
-      }
-    },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
+      },
+      "DeleteAssistant": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "CreateCallConfiguration": {
+        "type": "object",
+        "properties": {
+          "assistantId": {
+            "type": "string"
+          },
+          "organizationId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "assistantId",
+          "organizationId"
+        ]
+      },
+      "CallConfiguration": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "webCallUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "webCallUrl",
+          "error"
+        ]
+      },
+      "CreatePhoneCallConfiguration": {
+        "type": "object",
+        "properties": {
+          "assistantId": {
+            "type": "string"
+          },
+          "organizationId": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "userName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "assistantId",
+          "organizationId",
+          "phoneNumber"
+        ]
+      },
+      "PhoneCallConfiguration": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "error"
+        ]
+      },
+      "Provider": {
+        "type": "string",
+        "enum": [
+          "OPENAI",
+          "GROQ"
+        ]
+      },
+      "Model": {
+        "type": "string",
+        "enum": [
+          "GPT_4_O",
+          "GPT_3_5_TURBO",
+          "GPT_4_TURBO",
+          "LLAMA_3_70B",
+          "LLAMA_3_8B",
+          "MIXTRAL"
+        ]
+      },
+      "VoiceProvider": {
+        "type": "string",
+        "enum": [
+          "ELEVENLABS",
+          "PLAYHT",
+          "OPENAI"
+        ]
+      },
+      "BackgroundSound": {
+        "type": "string",
+        "enum": [
+          "DEFAULT",
+          "OFF",
+          "OFFICE"
+        ]
+      },
+      "Voice": {
+        "type": "string"
+      },
+      "VoiceConfigurationUpdateDto": {
+        "type": "object",
+        "properties": {
+          "initialMessage": {
+            "type": "string"
+          },
+          "prompt": {
+            "type": "string"
+          },
+          "resources": {
+            "type": "string"
+          },
+          "provider": {
+            "$ref": "#/components/schemas/Provider"
+          },
+          "model": {
+            "$ref": "#/components/schemas/Model"
+          },
+          "voiceProvider": {
+            "$ref": "#/components/schemas/VoiceProvider"
+          },
+          "voice": {
+            "$ref": "#/components/schemas/Voice"
+          },
+          "temperature": {
+            "type": "number"
+          },
+          "maxTokensOutput": {
+            "type": "number"
+          },
+          "backgroundSound": {
+            "$ref": "#/components/schemas/BackgroundSound"
+          },
+          "backchanneling": {
+            "type": "boolean"
+          }
+        }
+      },
+      "VoiceConfiguration": {
+        "type": "object",
+        "properties": {
+          "initialMessage": {
+            "type": "string"
+          },
+          "prompt": {
+            "type": "string"
+          },
+          "provider": {
+            "$ref": "#/components/schemas/Provider"
+          },
+          "resources": {
+            "type": "string"
+          },
+          "model": {
+            "$ref": "#/components/schemas/Model"
+          },
+          "voiceProvider": {
+            "$ref": "#/components/schemas/VoiceProvider"
+          },
+          "voice": {
+            "type": "string",
+            "enum": [
+              "burt",
+              "marissa",
+              "andrea",
+              "sarah",
+              "phillip",
+              "steve",
+              "joseph",
+              "myra",
+              "paula",
+              "ryan",
+              "drew",
+              "paul",
+              "mrb",
+              "matilda",
+              "mark",
+              "alloy",
+              "echo",
+              "fable",
+              "onyx",
+              "nova",
+              "shimmer ",
+              "jennifer",
+              "melissa",
+              "will",
+              "chris",
+              "matt",
+              "jack",
+              "ruby",
+              "davis",
+              "donna",
+              "michael "
+            ]
+          },
+          "temperature": {
+            "type": "number"
+          },
+          "maxTokensOutput": {
+            "type": "number"
+          },
+          "backgroundSound": {
+            "$ref": "#/components/schemas/BackgroundSound"
+          },
+          "backchanneling": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "initialMessage",
+          "prompt",
+          "provider",
+          "resources",
+          "model",
+          "voiceProvider",
+          "voice",
+          "temperature",
+          "maxTokensOutput",
+          "backgroundSound",
+          "backchanneling"
+        ]
+      },
+      "SmsConfigurationUpdateDto": {
+        "type": "object",
+        "properties": {
+          "initialMessage": {
+            "type": "string"
+          },
+          "prompt": {
+            "type": "string"
+          },
+          "resources": {
+            "type": "string"
+          },
+          "provider": {
+            "$ref": "#/components/schemas/Provider"
+          },
+          "model": {
+            "$ref": "#/components/schemas/Model"
+          },
+          "temperature": {
+            "type": "number"
+          },
+          "maxTokensOutput": {
+            "type": "number"
+          },
+          "smsMode": {
+            "type": "boolean"
+          },
+          "voiceCallMode": {
+            "type": "boolean"
+          },
+          "keywords": {
+            "type": "string"
+          }
+        }
+      },
+      "SmsConfiguration": {
+        "type": "object",
+        "properties": {
+          "initialMessage": {
+            "type": "string"
+          },
+          "prompt": {
+            "type": "string"
+          },
+          "resources": {
+            "type": "string"
+          },
+          "provider": {
+            "$ref": "#/components/schemas/Provider"
+          },
+          "model": {
+            "$ref": "#/components/schemas/Model"
+          },
+          "temperature": {
+            "type": "number"
+          },
+          "maxTokensOutput": {
+            "type": "number"
+          },
+          "smsMode": {
+            "type": "boolean"
+          },
+          "voiceCallMode": {
+            "type": "boolean"
+          },
+          "keywords": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "initialMessage",
+          "prompt",
+          "resources",
+          "provider",
+          "model",
+          "temperature",
+          "maxTokensOutput",
+          "smsMode",
+          "voiceCallMode",
+          "keywords"
+        ]
+      },
+      "ChatConfigurationUpdateDto": {
+        "type": "object",
+        "properties": {
+          "initialMessage": {
+            "type": "string"
+          },
+          "prompt": {
+            "type": "string"
+          },
+          "resources": {
+            "type": "string"
+          },
+          "provider": {
+            "$ref": "#/components/schemas/Provider"
+          },
+          "model": {
+            "$ref": "#/components/schemas/Model"
+          },
+          "temperature": {
+            "type": "number"
+          },
+          "maxTokensOutput": {
+            "type": "number"
+          },
+          "chatMode": {
+            "type": "boolean"
+          },
+          "quickRepliesEnabled": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ChatConfiguration": {
+        "type": "object",
+        "properties": {
+          "initialMessage": {
+            "type": "string"
+          },
+          "prompt": {
+            "type": "string"
+          },
+          "resources": {
+            "type": "string"
+          },
+          "provider": {
+            "$ref": "#/components/schemas/Provider"
+          },
+          "model": {
+            "$ref": "#/components/schemas/Model"
+          },
+          "temperature": {
+            "type": "number"
+          },
+          "maxTokensOutput": {
+            "type": "number"
+          },
+          "chatMode": {
+            "type": "boolean"
+          },
+          "quickRepliesEnabled": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "initialMessage",
+          "prompt",
+          "resources",
+          "provider",
+          "model",
+          "temperature",
+          "maxTokensOutput",
+          "chatMode",
+          "quickRepliesEnabled"
+        ]
       }
     }
   }
