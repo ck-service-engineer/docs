@@ -50,36 +50,39 @@
   ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Assistants",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "api-reference/assistants/get-restv1assistants",
+        "api-reference/assistants/post-restv1assistants",
+        "api-reference/assistants/get-restv1assistantstemplates",
+        "api-reference/assistants/get-restv1assistants-1",
+        "api-reference/assistants/delete-restv1assistants",
+        "api-reference/assistants/patch-restv1assistants",
+        "api-reference/assistants/post-restv1assistantsduplicate",
+        "api-reference/assistants/post-restv1assistantscallconfig",
+        "api-reference/assistants/post-restv1assistantsphonecallconfig",
+        "api-reference/assistants/post-restv1assistantscallavailable"
       ]
     },
     {
-      "group": "Essentials",
+      "group": "Assistants Voice Configuration",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "api-reference/assistants-voice-configuration/get-restv1assistants-voice",
+        "api-reference/assistants-voice-configuration/patch-restv1assistants-voice"
       ]
     },
     {
-      "group": "API Documentation",
+      "group": "Assistants Sms Configuration",
       "pages": [
-        "api-reference/introduction"
+        "api-reference/assistants-sms-configuration/get-restv1assistants-sms",
+        "api-reference/assistants-sms-configuration/patch-restv1assistants-sms"
       ]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "Assistants Chat Configuration",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "api-reference/assistants-chat-configuration/get-restv1assistants-chat",
+        "api-reference/assistants-chat-configuration/patch-restv1assistants-chat"
       ]
     }
   ],
