@@ -2,8 +2,8 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "AI Platform",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "https://careerkarma.ai/_next/image?url=%2Fassets%2Fck_logo.png&w=256&q=75",
+    "light": "https://careerkarma.ai/_next/image?url=%2Fassets%2Fck_logo.png&w=256&q=75"
   },
   "favicon": "/favicon.svg",
   "colors": {
