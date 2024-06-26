@@ -5,7 +5,7 @@
     "dark": "https://careerkarma.ai/_next/image?url=%2Fassets%2Fck_logo.png&w=256&q=75",
     "light": "https://careerkarma.ai/_next/image?url=%2Fassets%2Fck_logo.png&w=256&q=75"
   },
-  "favicon": "https://careerkarma.com/favicon.ico",
+  "favicon": "/favicon.svg",
   "colors": {
     "primary": "#FF8811",
     "light": "#07C983",
