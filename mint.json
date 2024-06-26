@@ -61,7 +61,7 @@
         "api-reference/assistants/post-restv1assistantsduplicate",
         "api-reference/assistants/post-restv1assistantscallconfig",
         "api-reference/assistants/post-restv1assistantsphonecallconfig",
-        "api-reference/assistants/post-restv1assistantscallavailable"
+        "api-reference/assistants/post-restv1assistantsthemeconfig"
       ]
     },
     {
@@ -83,6 +83,13 @@
       "pages": [
         "api-reference/assistants-chat-configuration/get-restv1assistants-chat",
         "api-reference/assistants-chat-configuration/patch-restv1assistants-chat"
+      ]
+    },
+    {
+      "group": "Assistants Theme Configuration",
+      "pages": [
+        "api-reference/assistants-theme-configuration/get-restv1assistants-theme",
+        "api-reference/assistants-theme-configuration/patch-restv1assistants-theme"
       ]
     }
   ],
