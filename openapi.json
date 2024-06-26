@@ -38,17 +38,63 @@
       },
       "get": {
         "operationId": "AssistantsController_findAll",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "default": "desc",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "take",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "List of AI Assistant.",
+            "description": "Paginated list of AI Assistant.",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Assistant"
-                  }
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/PageDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/Assistant"
+                          }
+                        }
+                      }
+                    }
+                  ]
                 }
               }
             }
@@ -190,7 +236,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Update specific AI Assistant.",
+            "description": "Delete specific AI Assistant.",
             "content": {
               "application/json": {
                 "schema": {
@@ -323,27 +369,27 @@
         ]
       }
     },
-    "/rest/v1/assistants/callAvailable": {
+    "/rest/v1/assistants/themeConfig": {
       "post": {
-        "operationId": "AssistantsController_callAvailable",
+        "operationId": "AssistantsController_themeConfig",
         "parameters": [],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateCallConfiguration"
+                "$ref": "#/components/schemas/ThemeConfigurationBody"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Check if call available for specific assistant and organization.",
+            "description": "Get theme of AI Assistant.",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "boolean"
+                  "$ref": "#/components/schemas/ThemeConfiguration"
                 }
               }
             }
@@ -595,6 +641,84 @@
           }
         ]
       }
+    },
+    "/rest/v1/assistants/{assistantId}/theme": {
+      "patch": {
+        "operationId": "ThemeController_create",
+        "parameters": [
+          {
+            "name": "assistantId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ThemeConfigurationUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update theme configuration of AI Assistant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThemeConfiguration"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Assistants Theme Configuration"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "get": {
+        "operationId": "ThemeController_config",
+        "parameters": [
+          {
+            "name": "assistantId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get theme configuration of AI Assistant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThemeConfiguration"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Assistants Theme Configuration"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
     }
   },
   "info": {
@@ -652,6 +776,55 @@
           "name"
         ]
       },
+      "PageMetaDto": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "number"
+          },
+          "take": {
+            "type": "number"
+          },
+          "itemCount": {
+            "type": "number"
+          },
+          "pageCount": {
+            "type": "number"
+          },
+          "hasPreviousPage": {
+            "type": "boolean"
+          },
+          "hasNextPage": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "page",
+          "take",
+          "itemCount",
+          "pageCount",
+          "hasPreviousPage",
+          "hasNextPage"
+        ]
+      },
+      "PageDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "array"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMetaDto"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ]
+      },
       "UpdateAssistantDto": {
         "type": "object",
         "properties": {
@@ -681,6 +854,15 @@
             "type": "string"
           },
           "organizationId": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "externalId": {
+            "type": "string"
+          },
+          "anonymousId": {
             "type": "string"
           }
         },
@@ -723,6 +905,15 @@
           },
           "userName": {
             "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "externalId": {
+            "type": "string"
+          },
+          "anonymousId": {
+            "type": "string"
           }
         },
         "required": [
@@ -746,11 +937,38 @@
           "error"
         ]
       },
+      "ThemeConfigurationBody": {
+        "type": "object",
+        "properties": {
+          "assistantId": {
+            "type": "string"
+          },
+          "organizationId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "assistantId",
+          "organizationId"
+        ]
+      },
+      "ThemeConfiguration": {
+        "type": "object",
+        "properties": {
+          "theme": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "theme"
+        ]
+      },
       "Provider": {
         "type": "string",
         "enum": [
           "OPENAI",
-          "GROQ"
+          "GROQ",
+          "ANTHROPIC"
         ]
       },
       "Model": {
@@ -761,7 +979,11 @@
           "GPT_4_TURBO",
           "LLAMA_3_70B",
           "LLAMA_3_8B",
-          "MIXTRAL"
+          "MIXTRAL",
+          "CLAUDE_3_OPUS",
+          "CLAUDE_3_SONNET",
+          "CLAUDE_3_HAIKU",
+          "CLAUDE_3_5_SONNET"
         ]
       },
       "VoiceProvider": {
@@ -779,9 +1001,6 @@
           "OFF",
           "OFFICE"
         ]
-      },
-      "Voice": {
-        "type": "string"
       },
       "VoiceConfigurationUpdateDto": {
         "type": "object",
@@ -820,6 +1039,9 @@
             "type": "boolean"
           }
         }
+      },
+      "Voice": {
+        "type": "string"
       },
       "VoiceConfiguration": {
         "type": "object",
@@ -905,6 +1127,24 @@
           "backchanneling"
         ]
       },
+      "SmsProvider": {
+        "type": "string",
+        "enum": [
+          "OPENAI",
+          "GROQ"
+        ]
+      },
+      "SmsModel": {
+        "type": "string",
+        "enum": [
+          "GPT_4_O",
+          "GPT_3_5_TURBO",
+          "GPT_4_TURBO",
+          "LLAMA_3_70B",
+          "LLAMA_3_8B",
+          "MIXTRAL"
+        ]
+      },
       "SmsConfigurationUpdateDto": {
         "type": "object",
         "properties": {
@@ -918,10 +1158,10 @@
             "type": "string"
           },
           "provider": {
-            "$ref": "#/components/schemas/Provider"
+            "$ref": "#/components/schemas/SmsProvider"
           },
           "model": {
-            "$ref": "#/components/schemas/Model"
+            "$ref": "#/components/schemas/SmsModel"
           },
           "temperature": {
             "type": "number"
@@ -953,10 +1193,10 @@
             "type": "string"
           },
           "provider": {
-            "$ref": "#/components/schemas/Provider"
+            "$ref": "#/components/schemas/SmsProvider"
           },
           "model": {
-            "$ref": "#/components/schemas/Model"
+            "$ref": "#/components/schemas/SmsModel"
           },
           "temperature": {
             "type": "number"
@@ -987,6 +1227,24 @@
           "keywords"
         ]
       },
+      "ChatProvider": {
+        "type": "string",
+        "enum": [
+          "OPENAI",
+          "GROQ"
+        ]
+      },
+      "ChatModel": {
+        "type": "string",
+        "enum": [
+          "GPT_4_O",
+          "GPT_3_5_TURBO",
+          "GPT_4_TURBO",
+          "LLAMA_3_70B",
+          "LLAMA_3_8B",
+          "MIXTRAL"
+        ]
+      },
       "ChatConfigurationUpdateDto": {
         "type": "object",
         "properties": {
@@ -1000,10 +1258,10 @@
             "type": "string"
           },
           "provider": {
-            "$ref": "#/components/schemas/Provider"
+            "$ref": "#/components/schemas/ChatProvider"
           },
           "model": {
-            "$ref": "#/components/schemas/Model"
+            "$ref": "#/components/schemas/ChatModel"
           },
           "temperature": {
             "type": "number"
@@ -1032,10 +1290,10 @@
             "type": "string"
           },
           "provider": {
-            "$ref": "#/components/schemas/Provider"
+            "$ref": "#/components/schemas/ChatProvider"
           },
           "model": {
-            "$ref": "#/components/schemas/Model"
+            "$ref": "#/components/schemas/ChatModel"
           },
           "temperature": {
             "type": "number"
@@ -1061,6 +1319,14 @@
           "chatMode",
           "quickRepliesEnabled"
         ]
+      },
+      "ThemeConfigurationUpdateDto": {
+        "type": "object",
+        "properties": {
+          "theme": {
+            "type": "object"
+          }
+        }
       }
     }
   }
