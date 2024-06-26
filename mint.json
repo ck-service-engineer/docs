@@ -5,7 +5,7 @@
     "dark": "https://careerkarma.ai/_next/image?url=%2Fassets%2Fck_logo.png&w=256&q=75",
     "light": "https://careerkarma.ai/_next/image?url=%2Fassets%2Fck_logo.png&w=256&q=75"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "https://careerkarma.com/favicon.ico",
   "colors": {
     "primary": "#FF8811",
     "light": "#07C983",
@@ -31,24 +31,21 @@
       "url": "api-reference"
     }
   ],
-  "anchors": [
-    {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
-    },
-    {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
-    }
-  ],
+  "anchors": [],
   "navigation": [
+    {
+      "group": "Get Started",
+      "pages": [
+        "introduction",
+        "quickstart"
+      ]
+    },
+    {
+      "group": "API Documentation",
+      "pages": [
+        "api-reference/introduction"
+      ]
+    },
     {
       "group": "Assistants",
       "pages": [
