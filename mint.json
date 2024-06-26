@@ -1,13 +1,13 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "AI Platform",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "https://careerkarma.ai/_next/image?url=%2Fassets%2Fck_logo.png&w=256&q=75",
+    "light": "https://careerkarma.ai/_next/image?url=%2Fassets%2Fck_logo.png&w=256&q=75"
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
+    "primary": "#FF8811",
     "light": "#07C983",
     "dark": "#0D9373",
     "anchors": {
@@ -50,36 +50,46 @@
   ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Assistants",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "api-reference/assistants/get-restv1assistants",
+        "api-reference/assistants/post-restv1assistants",
+        "api-reference/assistants/get-restv1assistantstemplates",
+        "api-reference/assistants/get-restv1assistants-1",
+        "api-reference/assistants/delete-restv1assistants",
+        "api-reference/assistants/patch-restv1assistants",
+        "api-reference/assistants/post-restv1assistantsduplicate",
+        "api-reference/assistants/post-restv1assistantscallconfig",
+        "api-reference/assistants/post-restv1assistantsphonecallconfig",
+        "api-reference/assistants/post-restv1assistantsthemeconfig"
       ]
     },
     {
-      "group": "Essentials",
+      "group": "Assistants Voice Configuration",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "api-reference/assistants-voice-configuration/get-restv1assistants-voice",
+        "api-reference/assistants-voice-configuration/patch-restv1assistants-voice"
       ]
     },
     {
-      "group": "API Documentation",
+      "group": "Assistants Sms Configuration",
       "pages": [
-        "api-reference/introduction"
+        "api-reference/assistants-sms-configuration/get-restv1assistants-sms",
+        "api-reference/assistants-sms-configuration/patch-restv1assistants-sms"
       ]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "Assistants Chat Configuration",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "api-reference/assistants-chat-configuration/get-restv1assistants-chat",
+        "api-reference/assistants-chat-configuration/patch-restv1assistants-chat"
+      ]
+    },
+    {
+      "group": "Assistants Theme Configuration",
+      "pages": [
+        "api-reference/assistants-theme-configuration/get-restv1assistants-theme",
+        "api-reference/assistants-theme-configuration/patch-restv1assistants-theme"
       ]
     }
   ],
@@ -87,5 +97,6 @@
     "x": "https://x.com/mintlify",
     "github": "https://github.com/mintlify",
     "linkedin": "https://www.linkedin.com/company/mintsearch"
-  }
+  },
+  "openapi": "openapi.json"
 }
