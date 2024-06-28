@@ -18,12 +18,12 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "mailto:support@careerkarma.ai"
     }
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "url": "https://careerkarma.ai"
   },
   "tabs": [
     {
@@ -37,7 +37,7 @@
       "group": "Get Started",
       "pages": [
         "introduction",
-        "quickstart"
+        "documentation/builder"
       ]
     },
     {
@@ -49,51 +49,11 @@
     {
       "group": "Assistants",
       "pages": [
-        "api-reference/assistants/get-restv1assistants",
-        "api-reference/assistants/post-restv1assistants",
-        "api-reference/assistants/get-restv1assistantstemplates",
-        "api-reference/assistants/get-restv1assistants-1",
-        "api-reference/assistants/delete-restv1assistants",
-        "api-reference/assistants/patch-restv1assistants",
-        "api-reference/assistants/post-restv1assistantsduplicate",
-        "api-reference/assistants/post-restv1assistantscallconfig",
-        "api-reference/assistants/post-restv1assistantsphonecallconfig",
-        "api-reference/assistants/post-restv1assistantsthemeconfig"
-      ]
-    },
-    {
-      "group": "Assistants Voice Configuration",
-      "pages": [
-        "api-reference/assistants-voice-configuration/get-restv1assistants-voice",
-        "api-reference/assistants-voice-configuration/patch-restv1assistants-voice"
-      ]
-    },
-    {
-      "group": "Assistants Sms Configuration",
-      "pages": [
-        "api-reference/assistants-sms-configuration/get-restv1assistants-sms",
-        "api-reference/assistants-sms-configuration/patch-restv1assistants-sms"
-      ]
-    },
-    {
-      "group": "Assistants Chat Configuration",
-      "pages": [
-        "api-reference/assistants-chat-configuration/get-restv1assistants-chat",
-        "api-reference/assistants-chat-configuration/patch-restv1assistants-chat"
-      ]
-    },
-    {
-      "group": "Assistants Theme Configuration",
-      "pages": [
-        "api-reference/assistants-theme-configuration/get-restv1assistants-theme",
-        "api-reference/assistants-theme-configuration/patch-restv1assistants-theme"
+        "api-reference/assistants/post-restv1assistantsphonecallconfig"
       ]
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
   },
   "openapi": "openapi.json"
 }
