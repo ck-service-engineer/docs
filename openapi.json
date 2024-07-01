@@ -729,7 +729,7 @@
   },
   "tags": [],
   "servers": [{
-    "url": "https://api.careerkarma.ai"
+    "url": "https://api.main.ck-cn.info"
   }],
   "components": {
     "securitySchemes": {
