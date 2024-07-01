@@ -37,13 +37,15 @@
       "group": "Get Started",
       "pages": [
         "introduction",
-        "documentation/builder"
+        "documentation/quickstart",
+        "documentation/integration"
       ]
     },
     {
       "group": "API Documentation",
       "pages": [
-        "api-reference/introduction"
+        "api-reference/introduction",
+        "api-reference/authentication"
       ]
     },
     {
